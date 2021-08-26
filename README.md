@@ -4,7 +4,7 @@ Exam solution for C Workshop course August 2021
 
 ## Documentation
 
-[Documentation](https://abrahammurciano.github.io/C-Workshop-Exam/files.html)
+[Documentation](https://abrahammurciano.github.io/C-Workshop-Exam/html/files.html)
 
 ## Visual Studio Code
 
