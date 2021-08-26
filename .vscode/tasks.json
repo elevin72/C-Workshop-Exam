@@ -1,0 +1,51 @@
+{
+	"tasks": [
+		{
+			"type": "cppbuild",
+			"label": "C/C++: gcc build active folder",
+			"command": "/usr/bin/gcc",
+			"args": [
+				"-g",
+				"*.c",
+				"-o",
+				"${fileDirname}/a.out"
+			],
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"type": "shell",
+			"label": "C/C++: gcc build all folders with bash",
+			"command": "bash",
+			"args": [
+				"build.sh",
+				"/bin/gcc",
+				"a.out"
+			],
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build"
+		},
+		{
+			"type": "shell",
+			"label": "C/C++: gcc build all folders with python",
+			"command": "python",
+			"args": [
+				"build.py",
+				"/bin/gcc",
+				"a.out"
+			],
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build"
+		}
+	],
+	"version": "2.0.0"
+}
