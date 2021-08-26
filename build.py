@@ -37,4 +37,4 @@ for directory in os.listdir(src):
 	if os.path.isdir(path):
 		print("building", path)
 		build_dir(path, outfile)
-doxygen("Doxyfile")
+doxygen(sys.argv[3] if len(sys.argv) > 3 else "Doxyfile")

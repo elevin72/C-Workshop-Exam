@@ -6,6 +6,8 @@
 			"command": "/usr/bin/gcc",
 			"args": [
 				"-g",
+				"-Wall",
+				"-Werror",
 				"*.c",
 				"-o",
 				"${fileDirname}/a.out"
@@ -16,10 +18,7 @@
 			"group": {
 				"kind": "build",
 				"isDefault": true
-			},
-			"dependsOn": [
-				"Doxygen: Generate documentation"
-			]
+			}
 		},
 		{
 			"type": "shell",
@@ -28,7 +27,8 @@
 			"args": [
 				"build.sh",
 				"/bin/gcc",
-				"a.out"
+				"a.out",
+				"Doxyfile"
 			],
 			"problemMatcher": [
 				"$gcc"
@@ -42,7 +42,8 @@
 			"args": [
 				"build.py",
 				"/bin/gcc",
-				"a.out"
+				"a.out",
+				"Doxyfile"
 			],
 			"problemMatcher": [
 				"$gcc"
