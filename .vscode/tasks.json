@@ -16,7 +16,10 @@
 			"group": {
 				"kind": "build",
 				"isDefault": true
-			}
+			},
+			"dependsOn": [
+				"Doxygen: Generate documentation"
+			]
 		},
 		{
 			"type": "shell",
@@ -45,6 +48,17 @@
 				"$gcc"
 			],
 			"group": "build"
+		},
+		{
+			"type": "shell",
+			"label": "Doxygen: Generate documentation",
+			"command": "doxygen",
+			"args": [
+				"Doxyfile"
+			],
+			"problemMatcher": [
+				"$gcc"
+			]
 		}
 	],
 	"version": "2.0.0"

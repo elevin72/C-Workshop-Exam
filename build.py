@@ -25,6 +25,10 @@ def build_dir(path: str, outfile: str):
 		)
 
 
+def doxygen(config_file: str):
+	subprocess.check_call(["doxygen", config_file])
+
+
 src = "src"
 compiler = sys.argv[1] if len(sys.argv) > 1 else "gcc"
 outfile = sys.argv[2] if len(sys.argv) > 2 else "a.out"
@@ -33,3 +37,4 @@ for directory in os.listdir(src):
 	if os.path.isdir(path):
 		print("building", path)
 		build_dir(path, outfile)
+doxygen("Doxyfile")
