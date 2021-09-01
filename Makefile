@@ -1,30 +1,18 @@
-# compiler
-CC = gcc
-
-# libraries to link (eg. "-lm", etc.)
-LIBS =
-
-# compiler flags
-CFLAGS = -Wall -Werror
-
-# source directory to build in
-SOURCE_DIR = src
-
 # Doxygen options
-DOXYFILE = Doxyfile
+DOXYFILE = dconfig
 
-# locate project directory
-PROJECT_DIR = $(SOURCE_DIR)/$@
+all: debug
 
-# gather the list of source files
-SOURCES = $(wildcard $(PROJECT_DIR)/*.c)
+release:
+	python build.py src "gcc -Wall -Werror -O5"
 
-all:
-	python build.py
+debug:
+	python build.py src "gcc -g -Wall -Werror"
+
+Ex01:
+	# command should be something like "gcc -g -o outfile"
+	python build.py src/Ex01 "My custom compile command"
 
 docs:
 	doxygen $(DOXYFILE)
 
-# compile all the source files in a given directory
-%: $(SOURCES)
-	$(CC) $(CFLAGS) $(LIBS) -o $(PROJECT_DIR)/a.out $(SOURCES)

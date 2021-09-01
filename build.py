@@ -5,36 +5,38 @@ import subprocess
 from typing import Iterable
 import sys
 
+def c_files_in_dir() -> Iterable[str]:
+    return filter(
+        os.path.isfile,
+        [
+            filename
+            for filename in os.listdir(".")
+            if filename.endswith(".c")
+        ],
+    )
 
-def files_in(path: str = ".", ext="") -> Iterable[str]:
-	return filter(
-		os.path.isfile,
-		[
-			os.path.join(path, filename)
-			for filename in os.listdir(path)
-			if filename.endswith(ext)
-		],
-	)
-
-
-def build_dir(path: str, outfile: str):
-	files = files_in(path, ".c")
-	if files:
-		subprocess.check_call(
-			["gcc", *files, "-o", os.path.join(path, outfile), "-Wall", "-Werror"]
-		)
-
+def build_dir(compiler_and_args: str):
+    print("Building in ", os.getcwd())
+    files = c_files_in_dir()
+    cmd = [*compiler_and_args.split(' ')] + [*files]
+    if files:
+        subprocess.check_call(cmd)
 
 def doxygen(config_file: str):
-	subprocess.check_call(["doxygen", config_file])
+    print("doxygening")
+    subprocess.run(["doxygen", config_file],capture_output=True)
 
+def build_in_all_dirs_in(src_dir: str, compiler_and_args: str):
+    os.chdir(src_dir)
+    if all(os.path.isfile(file) for file in os.listdir(".")):
+        build_dir(compiler_and_args)
+    else:
+        for dir in os.listdir("."):
+            if os.path.isdir(dir):
+                build_in_all_dirs_in(dir, compiler_and_args)
+    os.chdir("..")
 
-src = "src"
-compiler = sys.argv[1] if len(sys.argv) > 1 else "gcc"
-outfile = sys.argv[2] if len(sys.argv) > 2 else "a.out"
-for directory in os.listdir(src):
-	path = os.path.join(src, directory)
-	if os.path.isdir(path):
-		print("building", path)
-		build_dir(path, outfile)
-doxygen(sys.argv[3] if len(sys.argv) > 3 else "Doxyfile")
+src_dir = sys.argv[1] if len(sys.argv) > 1 else "src"
+compiler_and_args = sys.argv[2] if len(sys.argv) > 2 else "gcc -Wall -Werror -O5"
+build_in_all_dirs_in(src_dir, compiler_and_args)
+doxygen(sys.argv[3] if len(sys.argv) > 3 else "dconfig")
