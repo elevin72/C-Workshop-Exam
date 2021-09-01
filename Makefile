@@ -9,9 +9,9 @@ release:
 debug:
 	python build.py src "gcc -g -Wall -Werror"
 
+# custom build a specific directory like this
 Ex01:
-	# command should be something like "gcc -g -o outfile"
-	python build.py src/Ex01 "My custom compile command"
+	python build.py src/Ex01 "gcc -g -o outfile"
 
 docs:
 	doxygen $(DOXYFILE)
